@@ -21,10 +21,12 @@ YARD::Rake::YardocTask.new do |t|
   t.options = %w(--markup-provider=redcarpet --markup=markdown --main=README.md --files CHANGELOG.md)
 end
 
-RuboCop::RakeTask.new
+RuboCop::RakeTask.new do |r|
+  r.patterns = FileList['bin', 'lib', 'test', 'Gemfile', 'Rakefile', '*.gemspec']
+end
 
 RSpec::Core::RakeTask.new(:spec) do |r|
-  r.pattern = FileList['**/**/*_spec.rb']
+  r.pattern = FileList['test/**/*_spec.rb']
 end
 
 desc 'Make all plugins executable'
